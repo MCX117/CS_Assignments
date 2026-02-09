@@ -18,3 +18,7 @@
    ```c++
    arr // this points (pointer) to the first element, which is the address to the start of the array
    &arr[1] // "&" will give you the address of (something) the element number you choose (i.e. it doesn't have to be 1).
+
+## Video
+https://github.com/user-attachments/assets/bc8c5ded-0a31-49be-8915-b5060646f9a7
+
