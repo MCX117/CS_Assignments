@@ -183,6 +183,6 @@ So what's going on here?
       &emsp; And with all that, I conclude that it would be best to stick with a linear search than a randomized one. It's the same thing, without the flare. Now, I know there was reading material on **hash tables**, but after thinking about it, why use that if we're talking about randomization? It would be **O(1)**, unless there was a collision, as it states in the modules. In fact, it doesn't seem like there would be any randomization at all. (**NOTE:** Please let me know if I'm wrong about that)
 
 # Video
-[![Watch the video](https://img.youtube.com/vi/Ehig_6wULos/maxresdefault.jpg)](https://youtu.be/Ehig_6wULos)
+[![Assignment 2 Video](https://img.youtube.com/vi/Ehig_6wULos/maxresdefault.jpg)](https://youtu.be/EhiG_6wULos)
 
 **Note:** This is the first Youtube video I've ever done. I also might have some image quality issues because I'm using a wrapper to access Zoom in Linux.
