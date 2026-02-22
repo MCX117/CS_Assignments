@@ -44,6 +44,11 @@
   ````
 ## Video
 
+**Note:** Video may get a little blurry. My video quality on Zoom drops on Linux (using wrapper).
+
+https://github.com/user-attachments/assets/6fd3ef98-f475-441f-a395-5ef695b74c7a
+
+
 
 
 
