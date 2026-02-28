@@ -1,6 +1,6 @@
 # Assignment 4 - Sorting Algorithms II
 # Tasks
-**1.** To prove that, under the **average-case** scenario, insertion sort has a time complexity of O(N<sup>2</sup>), let's look at how a sorting algorithm works.
+**1.** To prove that, under the **average-case** scenario, insertion sort has a time complexity of O(N<sup>2</sup>), let's look at how a sorting algorithm works. First off, because <mark>Big O is like zooming really really far out of cartesian plane to get a wider view, it drops the constants and keeps exponents. **O( N(N-1) / 2)** would lose all its constants and simply be **O(N<sup>2</sup>)**.</mark> That's because, in the long run, the curve will still be parabolic.
 ```C++ 
     int insertionSort(int arr[], int size) {
         for (int i=1; i<size; i++) {          // # OUTER LOOP: # of passes is N-1
@@ -17,9 +17,9 @@
 For every index of N starting at 1, we will iterate i times in the worst case (the same number as the current index). Then, repeat until i in the outer loop reaches N-1.
 For every loop, that's **Loop = (N-1)+(N-2)+(N-3)...**. There's a pattern here. We are adding in ascending order, which equates to the **triangle formula: N(N-1)/2**. In the **WORST CASE SCCENARIO** there would be just as many swaps as there are comparisons. That would be **O(2 * (N(N-1))/2) = O(N(N-1))** (if you imagine 2 triangles).
 
-&emsp; But what if it was on **average**? Well, let's assume that it's compares and swaps half the time. Then it would be **O(2 * (N(N-1))/4) = O((N(N-1))/2)**. Again, imagine 2 triangles (swap and compare). Here's a visual:
+&emsp; But what if it was on **average**? Well, let's assume that it's compares and swaps half the time. Then it would be **O(2 * (N(N-1))/4) = O((N(N-1))/2)**. Again, imagine 2 triangles (swap and compare). <mark>In Big O terms, that's still **O(N<sup>2</sup>)**</mark>. Here's a visual:
    
-<img width="814" height="951" alt="InsertionSort drawio" src="https://github.com/user-attachments/assets/c8bea9dc-dc15-442f-91d5-d4e350deaf0b" />
+<img width="814" height="951" alt="InsertionSort drawio" src="https://github.com/user-attachments/assets/c8bea9dc-dc15-442f-91d5-d4e350deaf0b" /> <br />
 
 **2.** In an insertion sort where N=5, the number of steps in the worse case scenario are as follows:
 ```c++
@@ -65,25 +65,34 @@ int insertionSort(int arr2[], int size, int& steps) {
 ```
 <img width="2880" height="1759" alt="Screenshot From 2026-02-27 23-29-03" src="https://github.com/user-attachments/assets/5c8be592-94c9-4742-8585-3deb61a6d026" />
 
-&emsp; **a)** At **i = 1**, the total step count is at **20**. See above. <br />
-&emsp; **b)** At **i=2**, the <mark>total step count is **18**</mark>. At **i=3**, the <mark>total is **14**</mark>.
-&emsp; **c)** For **b**, at **i=2** and **i=3**, the sorting algorithm <mark>does not sort the entire array</mark>. <br>
+&emsp; **(a)** At **i = 1**, the total step count is at **20**. See above. <br />
+&emsp; **(b)** At **i=2**, the <mark>total step count is **18**</mark>. At **i=3**, the <mark>total is **14**</mark>. <br />
+&emsp; **(c)** For **b**, at **i=2** and **i=3**, the sorting algorithm <mark>does not sort the entire array</mark>. <br />
 &emsp; &emsp; We had an array of size 5 in descending order: A=[5,4,3,2,1]. if we start at i=2, A[i] = 3. We start from the middle of the array, and no longer account for A[0] and A[1]. What would happen is the **"key"** being compared to all the other elements to its left starts wherever A[i] is. If it skips indexes, then those number never get compared or swapped. So <mark>at i=2, A gets rearranged into A=[1,2,3,5,4]. At i=3, the array gets sorted as A=[1,2,5,4,3].</mark>
 
-**3)** 
-
-
-The following function returns whether or not a capital “X” is present within a string.
-function containsX(string) {
+**3)** The following function returns whether or not a capital “X” is present within a string.
+```
+function containsX(string) {					
 	foundX = false;
-	for(let i = 0; i < string.length; i++) { 
+	for(let i = 0; i < string.length; i++) { 	// A string of N length. Iterates through N.
+		if (string[i] === "X") {				// A comparison. For every iteration, there is 1 comparison. That's O(N)
+			foundX = true; 						// A flag. 1 step. O(2N) since 2 steps per iteration at worst.
+		}									    // Nothing to stop it. No breaks. Will continue all the way...
+	}
+	return foundX; 										
+}											    // RECAP: String of N length. Compares once per iteration, one to zero step per flag per iteration. O(2N) = time complexity O(N).
+```
+&emsp; **(a)** The function’s <mark>time complexity</mark> regarding Big O Notation <mark>is **O(N)**.</mark> See comments in the above algorithm. The algorithm has no breaks, so even at best, it's still O(N), as well. <br />
+&emsp; **(b)** Here's a modified version:
+```
+function containsX(string) {
+	for(let i = 0; i < string.length; i++) {	// Removed foundX variable/flag. Useless, since it doesn't stop the algorithm if it finds its mark.
 		if (string[i] === "X") {
-			foundX = true; 
+			return true; 						// Removed foundX in all of this. Returning a value will end the algorithm/iteration.
 		}
 	}
-	return foundX; 
-}
-
-(a) What is this function’s time complexity regarding Big O Notation?
-
-(b) Then, modify the code to improve the algorithm’s efficiency for best- and average-case scenarios.
+	return false; 								// Ends if it can't find "X".
+}												// I could have also simply added a return foundX below "foundX = true;". But this looks cleaner...
+```
+&emsp; &emsp; <mark>Best case scenario: **O(1)**</mark>. If "X" is found at i=0, then it's only 1 step at best. <br />
+&emsp; &emsp; <mark>Average case scenario: **O(N)**</mark>. On average: N/2. O(N/2) is still O(N) time complexity. <br />
